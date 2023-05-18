@@ -20,6 +20,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         resultLable.text = "0"
+        resultLable.adjustsFontSizeToFitWidth = true
+        resultLable.minimumScaleFactor = 0.5
         view.backgroundColor = UIColor.black
         let actionColorButton: UIColor = UIColor(red: 1, green: 158/255, blue: 11/255, alpha: 1)
         let digitColorButton: UIColor = UIColor(red: 52/255, green: 52/255, blue: 52/255, alpha: 1)
@@ -319,6 +321,7 @@ class CustomButton: UIButton {
         self.layer.cornerRadius = cornerRadius
         self.tag = tagNumber
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 28)
         NSLayoutConstraint.activate([
             self.widthAnchor.constraint(equalToConstant: buttonSize),
             self.heightAnchor.constraint(equalToConstant: buttonSize)
