@@ -16,8 +16,24 @@ class ViewController: UIViewController {
     var operation: Int = 0
     var result: Double = 0
     
+    var historyArray: Array<String> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.backButtonTitle = "Калькулятор"
+        
+        let historyButton = UIButton()
+        view.addSubview(historyButton)
+        historyButton.setTitle("История", for: .normal)
+        historyButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        historyButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            historyButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            historyButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+        historyButton.addTarget(self, action: #selector(historyButtonAction), for: .touchUpInside)
+        
         
         resultLable.text = "0"
         resultLable.adjustsFontSizeToFitWidth = true
@@ -300,13 +316,26 @@ class ViewController: UIViewController {
                 resultLable.text = String(firstNumber + secondNumber)
                 result = Double(resultLable.text!)!
             }
+            if operation != -1 {
+                historyArray.append(String(firstNumber))
+                historyArray.append(String(operation))
+                historyArray.append(String(secondNumber))
+                historyArray.append(String(result))
+            }
+            print(historyArray)
         }
         else if sender.tag == 11 {
             resultLable.text = "0"
             firstNumber = 0
             secondNumber = 0
-            operation = 0
+            operation = -1
         }
+    }
+    
+    @objc func historyButtonAction(){
+        let controller = SecondViewController()
+        controller.historyArray = historyArray
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
     
