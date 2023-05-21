@@ -54,18 +54,6 @@ class ViewController: UIViewController {
             resultLable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
         
-        let stackView = UIStackView()
-        view.addSubview(stackView)
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 15
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: resultLable.bottomAnchor, constant: 50),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            stackView.heightAnchor.constraint(equalToConstant: 77)
-        ])
         
         let firstButton = CustomButton(title: "1",
                                        backgroundColor: digitColorButton,
@@ -166,51 +154,40 @@ class ViewController: UIViewController {
                                        tagNumber: 19)
         commaButton.addTarget(self, action: #selector(actionButtons), for: .touchUpInside)
         
+        let stackView = UIStackView()
         
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 15
         
         let stackView2 = UIStackView()
-        view.addSubview(stackView2)
         stackView2.translatesAutoresizingMaskIntoConstraints = false
         stackView2.spacing = 15
-        NSLayoutConstraint.activate([
-            stackView2.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15),
-            stackView2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            stackView2.heightAnchor.constraint(equalToConstant: 77)
-        ])
         
         let stackView3 = UIStackView()
-        view.addSubview(stackView3)
         stackView3.translatesAutoresizingMaskIntoConstraints = false
         stackView3.spacing = 15
-        NSLayoutConstraint.activate([
-            stackView3.topAnchor.constraint(equalTo: stackView2.bottomAnchor, constant: 15),
-            stackView3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            stackView3.heightAnchor.constraint(equalToConstant: 77)
-        ])
         
         let stackView4 = UIStackView()
-        view.addSubview(stackView4)
         stackView4.translatesAutoresizingMaskIntoConstraints = false
         stackView4.spacing = 15
-        NSLayoutConstraint.activate([
-            stackView4.topAnchor.constraint(equalTo: stackView3.bottomAnchor, constant: 15),
-            stackView4.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            stackView4.heightAnchor.constraint(equalToConstant: 77)
-        ])
         
         let stackView5 = UIStackView()
-        view.addSubview(stackView5)
         stackView5.translatesAutoresizingMaskIntoConstraints = false
         stackView5.spacing = 15
         stackView5.alignment = .top
+        
+        let mainStackView = UIStackView()
+        mainStackView.axis = .vertical
+        mainStackView.alignment = .fill
+        mainStackView.distribution = .fill
+        mainStackView.spacing = 15
+        view.addSubview(mainStackView)
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView5.topAnchor.constraint(equalTo: stackView4.bottomAnchor, constant: 15),
-            stackView5.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView5.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            stackView5.heightAnchor.constraint(equalToConstant: 77)
+            mainStackView.topAnchor.constraint(equalTo: resultLable.bottomAnchor, constant: 16),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            mainStackView.heightAnchor.constraint(equalToConstant: 445)
         ])
         
         stackView.addArrangedSubview(resetButton)
@@ -233,6 +210,11 @@ class ViewController: UIViewController {
         stackView5.addArrangedSubview(commaButton)
         stackView5.addArrangedSubview(resultButton)
         
+        mainStackView.addArrangedSubview(stackView)
+        mainStackView.addArrangedSubview(stackView2)
+        mainStackView.addArrangedSubview(stackView3)
+        mainStackView.addArrangedSubview(stackView4)
+        mainStackView.addArrangedSubview(stackView5)
         
     }
     
@@ -333,12 +315,12 @@ class ViewController: UIViewController {
     }
     
     @objc func historyButtonAction(){
-        let controller = SecondViewController()
+        let controller = HistoryTableViewController()
         controller.historyArray = historyArray
         navigationController?.pushViewController(controller, animated: true)
     }
 }
-    
+
 class CustomButton: UIButton {
     
     init(title: String, backgroundColor: UIColor, titleColor: UIColor, tagNumber: Int, buttonSize: Double = 77, cornerRadius: Double = 77/2) {
